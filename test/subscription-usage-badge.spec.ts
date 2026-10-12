@@ -18,10 +18,11 @@ css.deregister()
 import type { ProviderUsageDisplay } from '../src/client/SubscriptionUsageBadge.js'
 import type { UsageWindow } from '../src/client/SubscriptionsSection.js'
 import { en, zh } from '../src/client/locales.js'
+import { PartialArguments } from '@deepseek-ai/dsh-util-values'
 
 test('media tool views render the preparing phase before arguments are available', () => {
   for (const [Component, name] of [[ImageGenerateToolview, 'image_generate'], [VideoGenerateToolview, 'video_generate']] as const) {
-    const block = { phase: 'preparing' as const, callId: 'media-call', name, turn: 0, step: 0, time: 0, subCalls: [] }
+    const block = { phase: 'preparing' as const, callId: 'media-call', name, turn: 0, step: 0, time: 0, subCalls: [], args: PartialArguments.EMPTY }
     const html = renderToStaticMarkup(createElement(Component, { block }))
     assert.ok(html.includes(name))
   }
